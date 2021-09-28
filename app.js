@@ -6,6 +6,7 @@ var app = express();  //创建express的实例
 app.use('/',require('./routes/index'))
 app.use('/getVisitor',require('./routes/visitor')) //获取当前访客
 app.use('/queryAllArticles',require('./routes/article')) //获取文章
+app.use('/queryAllArticles/comment',require('./routes/article')) //获取文章
 
 
 
