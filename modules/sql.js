@@ -4,8 +4,11 @@ module.exports = {
     },
     article: {
         queryAllArticles: 'SELECT * FROM article_table',
-        queryCommentByArticleId: function(id) {
+        queryCommentByArticleId: function (id) {
             return `SELECT * FROM lois_space_schema.comment_table where article_id = ${id}`
+        },
+        addArticle: function (obj) {
+            return `INSERT INTO lois_space_schema.article_table(content_html, content_text, create_time, title) VALUES ('${obj.htmlContent}', '${obj.textContent}', '${obj.time}', '${obj.titleContent}')`
         }
     }
 }
