@@ -3,10 +3,16 @@ var handle = require('../modules/handle')
 
 let router = express.Router()
 
-router.get('/', function (req, res) {
-    // console.log(req.query)
-
+router.get('/queryAllVisitors', function (req, res) {
     handle.queryAll(result => {
+        console.log(result)
+        res.send(result)
+    })
+})
+
+router.get('/addVisitor', function (req, res) {
+    console.log(req.query)
+    handle.addVisitor(req.query,result => {
         console.log(result)
         res.send(result)
     })

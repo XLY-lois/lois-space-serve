@@ -9,7 +9,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 app.use('/',require('./routes/index'))
-app.use('/getVisitor',require('./routes/visitor')) //获取当前访客
+app.use('/',require('./routes/visitor')) //获取当前访客
 app.use('/',require('./routes/article')) //文章相关接口
 app.use('/',require('./routes/comment')) //评论相关接口
 

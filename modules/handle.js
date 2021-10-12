@@ -11,16 +11,25 @@ var sql = require('./sql')
 
 var connection = mysql.createConnection(mysqlconfig);
 module.exports = {
-    queryAll: function (callback) {
-        connection.query(sql.visitor.queryAll, function (err, result) {
+    addVisitor: function (obj,callback) {
+        connection.query(sql.visitor.addVisitor(obj.name), function (err, result) {
             if (err) {
                 console.log('[SELECT ERROR]:', err.message);
             }
             //回调函数 把result扔出去
             callback(result)
         });
-        
     },
+    // queryAll: function (callback) {
+    //     connection.query(sql.visitor.queryAll, function (err, result) {
+    //         if (err) {
+    //             console.log('[SELECT ERROR]:', err.message);
+    //         }
+    //         //回调函数 把result扔出去
+    //         callback(result)
+    //     });
+        
+    // },
     queryAllArticles:function (callback) {
         connection.query(sql.article.queryAllArticles, function (err, result) {
             if (err) {
@@ -39,15 +48,15 @@ module.exports = {
             callback(result)
         });
     },
-    addArticle:function(obj) {
+    addArticle:function(obj,callback) {
         console.log(obj)
         connection.query(sql.article.addArticle(obj), function (err, result) {
             if (err) {
                 console.log('[SELECT ERROR]:', err.message);
             }
             //回调函数 把result扔出去
-            // callback(result)
+            callback(result)
         });
-        console.log('post')
+        // console.log('post')
     }
 }
