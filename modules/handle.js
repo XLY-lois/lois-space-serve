@@ -20,16 +20,16 @@ module.exports = {
             callback(result)
         });
     },
-    // queryAll: function (callback) {
-    //     connection.query(sql.visitor.queryAll, function (err, result) {
-    //         if (err) {
-    //             console.log('[SELECT ERROR]:', err.message);
-    //         }
-    //         //回调函数 把result扔出去
-    //         callback(result)
-    //     });
+    queryAll: function (callback) {
+        connection.query(sql.visitor.queryAll, function (err, result) {
+            if (err) {
+                console.log('[SELECT ERROR]:', err.message);
+            }
+            //回调函数 把result扔出去
+            callback(result)
+        });
         
-    // },
+    },
     queryAllArticles:function (callback) {
         connection.query(sql.article.queryAllArticles, function (err, result) {
             if (err) {
