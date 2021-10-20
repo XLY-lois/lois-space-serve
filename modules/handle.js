@@ -9,9 +9,9 @@ var mysql = require('mysql')
 var mysqlconfig = require('../config/mysql')
 var sql = require('./sql')
 
-var connection = mysql.createConnection(mysqlconfig);
+var connection = mysql.createConnection(mysqlconfig['dev']); //参数为当前环境 开发：dev 生产：prod
 module.exports = {
-    addVisitor: function (obj,callback) {
+    addVisitor: function (obj, callback) {
         connection.query(sql.visitor.addVisitor(obj.name), function (err, result) {
             if (err) {
                 console.log('[SELECT ERROR]:', err.message);
@@ -25,21 +25,26 @@ module.exports = {
             if (err) {
                 console.log('[SELECT ERROR]:', err.message);
             }
-            //回调函数 把result扔出去
+
             callback(result)
         });
-        
+
     },
-    queryAllArticles:function (callback) {
+    queryAllArticles: function (callback) {
         connection.query(sql.article.queryAllArticles, function (err, result) {
             if (err) {
                 console.log('[SELECT ERROR]:', err.message);
             }
-            //回调函数 把result扔出去
+            result.forEach(element => {
+                let time = Date.parse(element.create_time)
+                let dt = new Date(time)
+                element.create_time = `${dt.getFullYear()}-${(dt.getMonth() + 1)}-${dt.getDate()} ${dt.getHours()}:${dt.getMinutes()}:${dt.getSeconds()}`
+                // console.log(element)
+            })
             callback(result)
         });
     },
-    queryCommentByArticleId:function(callback) {
+    queryCommentByArticleId: function (callback) {
         connection.query(sql.article.queryCommentByArticleId('001'), function (err, result) {
             if (err) {
                 console.log('[SELECT ERROR]:', err.message);
@@ -48,7 +53,7 @@ module.exports = {
             callback(result)
         });
     },
-    addArticle:function(obj,callback) {
+    addArticle: function (obj, callback) {
         console.log(obj)
         connection.query(sql.article.addArticle(obj), function (err, result) {
             if (err) {

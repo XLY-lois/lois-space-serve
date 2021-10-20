@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
-  "scripts": {},
+  "scripts": {
+    "prod": "NODE_ENV=production node server.js"
+  },
   "author": "lois",
   "license": "ISC",
   "dependencies": {
