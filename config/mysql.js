@@ -8,13 +8,15 @@ module.exports = {
         port: '3306',
         user: 'root',
         password: 'root',
-        database: 'lois_space_schema'
+        database: 'lois_space_schema',
+        multipleStatements: true
     },
     prod: {
         host: '114.132.240.121',
         port: '3306',
         user: 'root',
         password: 'xly5201314',
-        database: 'lois_space_schema'
+        database: 'lois_space_schema',
+        multipleStatements: true
     },
 }

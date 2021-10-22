@@ -10,9 +10,13 @@ router.get('/queryAllVisitors', function (req, res) {
 })
 
 router.get('/addVisitor', function (req, res) {
-    handle.addVisitor(req.query,result => {
-        console.log(result)
-        res.send(result)
+    handle.addVisitor(req.query, result => {
+        let resObj = {
+            code: 1,
+            messge: '成功',
+            data: result
+        }
+        res.send(resObj)
     })
 })
 
