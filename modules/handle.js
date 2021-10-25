@@ -5,9 +5,11 @@
     req.body通常用来解析POST请求中的数据
      +req.query.id 可以将id转为整数
  */
-var mysql = require('mysql')
-var mysqlconfig = require('../config/mysql')
-var sql = require('./sql')
+
+const timeFormat = require('../utils/time')
+const mysql = require('mysql')
+const mysqlconfig = require('../config/mysql')
+const sql = require('./sql')
 
 var connection = mysql.createConnection(mysqlconfig['dev']); //参数为当前环境 开发：dev 生产：prod
 module.exports = {
@@ -36,9 +38,8 @@ module.exports = {
                 console.log('[SELECT ERROR]:', err.message);
             }
             result.forEach(element => {
-                let time = Date.parse(element.create_time)
-                let dt = new Date(time)
-                element.create_time = `${dt.getFullYear()}-${(dt.getMonth() + 1)}-${dt.getDate()} ${dt.getHours()}:${dt.getMinutes()}:${dt.getSeconds()}`
+                element.create_time = timeFormat.timestampFormat(element.create_time)
+                element.last_edit_time = timeFormat.timestampFormat(element.last_edit_time)
             })
             callback(result)
         });
