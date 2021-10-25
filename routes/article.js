@@ -50,7 +50,8 @@ router.post('/delArticleById',function(req,res){
     })
 })
 router.post('/editArticleById',function(req,res){
-    // console.log(req.body)
+    console.log('/editArticleById 调用')
+    console.log(req.body)
     handle.editArticleById(req.body,result => {
         let resObj = {
             code: 1,

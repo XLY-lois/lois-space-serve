@@ -22,7 +22,7 @@ module.exports = {
             return sql
         },
         editArticleById: function (obj) {
-            return `UPDATE lois_space_schema.article_table SET content_html = ${obj.htmlContent}, content_text = ${obj.textContent} WHERE id = ${obj.id};`
+            return `UPDATE lois_space_schema.article_table SET content_html = '${obj.htmlContent}', content_text = '${obj.textContent}', title='${obj.titleContent}' WHERE id = ${obj.id};`
         },
         queryArticleById: function (id) {
             return `SELECT * FROM lois_space_schema.article_table WHERE id = ${id}`
