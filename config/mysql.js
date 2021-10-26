@@ -9,7 +9,8 @@ module.exports = {
         user: 'root',
         password: 'root',
         database: 'lois_space_schema',
-        multipleStatements: true
+        multipleStatements: true,
+        charset : 'utf8mb4'
     },
     prod: {
         host: '114.132.240.121',
@@ -17,6 +18,7 @@ module.exports = {
         user: 'root',
         password: 'xly5201314',
         database: 'lois_space_schema',
-        multipleStatements: true
+        multipleStatements: true,
+        charset : 'utf8mb4'
     },
 }
