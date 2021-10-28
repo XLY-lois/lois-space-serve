@@ -1,8 +1,8 @@
 module.exports = {
     visitor: { // visitor表的语句
         queryAll: 'SELECT * FROM visitor_table',
-        addVisitor: function (name) {
-            return `INSERT INTO lois_space_schema.visitor_table (name) VALUES ('${name} ')`
+        addVisitor: function (ip) {
+            return `INSERT INTO lois_space_schema.visitor_table (ip) VALUES ('${ip} ')`
         }
     },
     article: {

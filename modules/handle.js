@@ -13,8 +13,8 @@ const sql = require('./sql')
 
 var connection = mysql.createConnection(mysqlconfig['dev']); //参数为当前环境 开发：dev 生产：prod
 module.exports = {
-    addVisitor: function (obj, callback) {
-        connection.query(sql.visitor.addVisitor(obj.name), function (err, result) {
+    addVisitor: function (ip, callback) {
+        connection.query(sql.visitor.addVisitor(ip), function (err, result) {
             if (err) {
                 console.log('[SELECT ERROR]:', err.message);
             }
