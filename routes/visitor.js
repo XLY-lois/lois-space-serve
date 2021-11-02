@@ -11,12 +11,12 @@ router.get('/queryAllVisitors', function (req, res) {
 
 router.get('/addVisitor', function (req, res) {
     console.log('/addVisitor 调用')
+    let obj = req.query
     let ip = req.ip.substring(7)
-    handle.addVisitor(ip, result => {
+    handle.addVisitor({...obj, ip}, result => {
         let resObj = {
             code: 1,
             messge: '成功',
-            ip
         }
         res.send(resObj)
     })

@@ -13,8 +13,9 @@ const sql = require('./sql')
 
 var connection = mysql.createConnection(mysqlconfig['dev']); //参数为当前环境 开发：dev 生产：prod
 module.exports = {
-    addVisitor: function (ip, callback) {
-        connection.query(sql.visitor.addVisitor(ip), function (err, result) {
+    addVisitor: function (obj, callback) {
+        console.log(obj)
+        connection.query(sql.visitor.addVisitor(obj), function (err, result) {
             if (err) {
                 console.log('[SELECT ERROR]:', err.message);
             }
@@ -82,12 +83,22 @@ module.exports = {
             if (err) {
                 console.log('[SELECT ERROR]:', err.message);
             }
-            // result.forEach(element => {
-            //     let time = Date.parse(element.create_time)
-            //     let dt = new Date(time)
-            //     element.create_time = `${dt.getFullYear()}-${(dt.getMonth() + 1)}-${dt.getDate()} ${dt.getHours()}:${dt.getMinutes()}:${dt.getSeconds()}`
-            // })
+            if (result) {
+                result.forEach(element => {
+                    let time = Date.parse(element.create_time)
+                    let dt = new Date(time)
+                    element.create_time = `${dt.getFullYear()}-${(dt.getMonth() + 1)}-${dt.getDate()} ${dt.getHours()}:${dt.getMinutes()}:${dt.getSeconds()}`
+                })
+            }
             callback(result)
         });
     },
+    addCommentByArticleId: function (obj, callback) {
+        connection.query(sql.comment.addCommentByArticleId(obj), function (err, result) {
+            if (err) {
+                console.log('[SELECT ERROR]:', err.message);
+            }
+            callback(result)
+        });
+    }
 }
