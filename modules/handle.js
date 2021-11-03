@@ -45,12 +45,14 @@ module.exports = {
             callback(result)
         });
     },
-    queryCommentByArticleId: function (callback) {
-        connection.query(sql.article.queryCommentByArticleId('001'), function (err, result) {
+    queryCommentByArticleId: function (id, callback) {
+        connection.query(sql.article.queryCommentByArticleId(id), function (err, result) {
             if (err) {
                 console.log('[SELECT ERROR]:', err.message);
             }
-            //回调函数 把result扔出去
+            result.forEach(element => {
+                element.created_time = timeFormat.timestampFormat(element.created_time)
+            })
             callback(result)
         });
     },

@@ -10,12 +10,13 @@ let router = express.Router()
 //     })
 // })
 
-// router.get('/getCommentById',function(req,res){
-//     console.log("/getCommentById 调用成功")
-//     handle.queryCommentByArticleId(result => {
-//         res.send(result)
-//     })
-// })
+router.get('/getCommentById',function(req,res){
+    console.log("/getCommentById 调用成功")
+    let id = req.query.id
+    handle.queryCommentByArticleId(id,result => {
+        res.send(result)
+    })
+})
 
 router.post('/addCommentByArticleId',function(req,res){
     console.log('/addCommentByArticleId 调用')
