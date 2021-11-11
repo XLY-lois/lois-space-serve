@@ -6,11 +6,7 @@ module.exports = {
         }
     },
     article: {
-        // queryAllArticles: 'SELECT * FROM article_table',
         queryAllArticles: 'SELECT * FROM article_table where status = 0 order by create_time desc limit 10',
-        queryCommentByArticleId: function (id) {
-            return `SELECT * FROM lois_space_schema.comment_table where article_id = ${id}`
-        },
         addArticle: function (obj) {
             return `INSERT INTO lois_space_schema.article_table(content_html, content_text, title) VALUES ('${obj.htmlContent}', '${obj.textContent}', '${obj.titleContent}')`
         },
@@ -29,6 +25,9 @@ module.exports = {
         },
     },
     comment: {
+        queryCommentByArticleId: function (id) {
+            return `SELECT * FROM lois_space_schema.comment_table where article_id = ${id}`
+        },
         addCommentByArticleId: function (obj) {
             return `INSERT INTO lois_space_schema.comment_table(article_id, name, comment_content, email) VALUES ('${obj.articleId}', '${obj.name}', '${obj.content}', '${obj.email}')`
         }

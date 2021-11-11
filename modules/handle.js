@@ -10,9 +10,14 @@ const timeFormat = require('../utils/time')
 const mysql = require('mysql')
 const mysqlconfig = require('../config/mysql')
 const sql = require('./sql')
+const interface = require('../utils/interface')
+
 
 var connection = mysql.createConnection(mysqlconfig['dev']); //参数为当前环境 开发：dev 生产：prod
 module.exports = {
+    /**
+     * 访客相关
+     */
     addVisitor: function (obj, callback) {
         console.log(obj)
         connection.query(sql.visitor.addVisitor(obj), function (err, result) {
@@ -33,6 +38,9 @@ module.exports = {
         });
 
     },
+    /**
+     * 文章相关
+     */
     queryAllArticles: function (callback) {
         connection.query(sql.article.queryAllArticles, function (err, result) {
             if (err) {
@@ -41,17 +49,6 @@ module.exports = {
             result.forEach(element => {
                 element.create_time = timeFormat.timestampFormat(element.create_time)
                 element.last_edit_time = timeFormat.timestampFormat(element.last_edit_time)
-            })
-            callback(result)
-        });
-    },
-    queryCommentByArticleId: function (id, callback) {
-        connection.query(sql.article.queryCommentByArticleId(id), function (err, result) {
-            if (err) {
-                console.log('[SELECT ERROR]:', err.message);
-            }
-            result.forEach(element => {
-                element.created_time = timeFormat.timestampFormat(element.created_time)
             })
             callback(result)
         });
@@ -95,6 +92,20 @@ module.exports = {
             callback(result)
         });
     },
+    /**
+   * 留言相关
+   */
+    queryCommentByArticleId: function (id, callback) {
+        connection.query(sql.comment.queryCommentByArticleId(id), function (err, result) {
+            if (err) {
+                console.log('[SELECT ERROR]:', err.message);
+            }
+            result.forEach(element => {
+                element.created_time = timeFormat.timestampFormat(element.created_time)
+            })
+            callback(result)
+        });
+    },
     addCommentByArticleId: function (obj, callback) {
         connection.query(sql.comment.addCommentByArticleId(obj), function (err, result) {
             if (err) {
@@ -102,5 +113,32 @@ module.exports = {
             }
             callback(result)
         });
+    },
+    /**
+     * 第三方接口
+     */
+    getLocal: function (ip) {
+        let params = {
+            ip,
+            key: 'bcd17e8178f9ada299cb72fa41c3997f'
+        }
+        return new Promise((resolve, reject) => {
+            interface.extApiGet(params, 'apis.juhe.cn', '/ip/ipNewV3?')
+                .then(function (data) {
+                    resolve(data)
+                })
+        })
+    },
+    getLocalWeather: function (city) { //好了用了两层promise ORZ... 
+        let params = {
+            city,
+            key: '72ef8963519ebaf3937bbdd154b59659'
+        }
+        return new Promise((resolve, reject) => {
+            interface.extApiGet(params, 'apis.juhe.cn', '/simpleWeather/query?')
+                .then(function (data) {
+                    resolve(data)
+                })
+        }) //TODO 错误处理
     }
 }

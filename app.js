@@ -21,6 +21,7 @@ app.use(express.static(path.join(__dirname, 'dist')))  //将dist中的index作�
 app.use('/', require('./routes/visitor')) //获取当前访客
 app.use('/', require('./routes/article')) //文章相关接口
 app.use('/', require('./routes/comment')) //评论相关接口
+app.use('/', require('./routes/exInterface')) //外部第三方接口
 
 
 app.listen(3000, function () {

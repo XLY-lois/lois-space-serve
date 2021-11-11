@@ -5,7 +5,6 @@ let router = express.Router()
 
 router.get('/queryAllArticles', function (req, res) {
     console.log('/queryAllArticles 调用成功')
-
     handle.queryAllArticles(result => {
         let resObj = {
             code: 1,
@@ -17,7 +16,6 @@ router.get('/queryAllArticles', function (req, res) {
 })
 router.get('/queryArticleById', function (req, res) {
     console.log('/queryArticleById 调用成功')
-
     handle.queryArticleById(req.query,result => {
         let resObj = {
             code: 1,

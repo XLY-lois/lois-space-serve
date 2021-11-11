@@ -18,7 +18,7 @@ router.get('/addVisitor', function (req, res) {
             code: 1,
             messge: '成功',
         }
-        res.send(resObj)
+        res.send({...resObj,ip})
     })
 })
 
