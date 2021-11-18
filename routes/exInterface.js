@@ -12,7 +12,6 @@ router.get('/getWeatherByIp', function (req, res) {
             return JSON.parse(result).result.City
         })
         .then(function (city) {
-            // console.log(city)
             handle.getLocalWeather(city)
                 .then(function (result) {
                     let resObj = {
