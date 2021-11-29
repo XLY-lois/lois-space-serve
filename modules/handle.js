@@ -92,6 +92,14 @@ module.exports = {
             callback(result)
         });
     },
+    likeById: function (obj, callback) {
+        connection.query(sql.article.likeById(obj), function (err, result) {
+            if (err) {
+                console.log('[SELECT ERROR]:', err.message);
+            }
+            callback(result)
+        });
+    },
     /**
    * 留言相关
    */
