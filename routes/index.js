@@ -7,7 +7,6 @@ router.get('/', function (req, res) {
     console.log('收到请求')
 
     handle.queryAll(result => {
-        // res.send(result)
         res.sendfile(__dirname+"/public/index.html");
     })
 })

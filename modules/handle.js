@@ -14,6 +14,8 @@ const interface = require('../utils/interface')
 
 
 var connection = mysql.createConnection(mysqlconfig['dev']); //参数为当前环境 开发：dev 生产：prod
+mysqlconfig.mode = 'dev'
+
 module.exports = {
     /**
      * 访客相关
@@ -46,11 +48,24 @@ module.exports = {
             if (err) {
                 console.log('[SELECT ERROR]:', err.message);
             }
-            result.forEach(element => {
-                element.create_time = timeFormat.timestampFormat(element.create_time)
-                element.last_edit_time = timeFormat.timestampFormat(element.last_edit_time)
+            connection.query(sql.tagList.queryAll, function (err, tagList) {
+                if (err) {
+                    console.log('[SELECT ERROR]:', err.message);
+                }
+                result.forEach(element => {
+                    element.create_time = timeFormat.timestampFormat(element.create_time)
+                    element.last_edit_time = timeFormat.timestampFormat(element.last_edit_time)
+                    if (element.id_tag) {
+                        for (let i = 0; i <= tagList.length-1; i++) {
+                            if(element.id_tag == tagList[i].id_tag){
+                                element.name_tag = tagList[i].name_tag
+                                element.color_tag = tagList[i].color_tag
+                            }
+                        }
+                    }
+                })
+                callback(result)
             })
-            callback(result)
         });
     },
     addArticle: function (obj, callback) {
@@ -121,6 +136,19 @@ module.exports = {
             }
             callback(result)
         });
+    },
+
+    /**
+     * 
+     * 分类列表
+     */
+    getClassificationList: function (callback) {
+        connection.query(sql.classification.queryAll, function (err, result) {
+            if (err) {
+                console.log('[SELECT ERROR]:', err.message);
+            }
+            callback(result)
+        })
     },
     /**
      * 第三方接口

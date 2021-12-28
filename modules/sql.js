@@ -31,5 +31,11 @@ module.exports = {
         addCommentByArticleId: function (obj) {
             return `INSERT INTO lois_space_schema.comment_table(article_id, name, comment_content, email) VALUES ('${obj.articleId}', '${obj.name}', '${obj.content}', '${obj.email}')`
         }
+    },
+    classification: {
+        queryAll: `SELECT * FROM lois_space_schema.classification_table`
+    },
+    tagList: {
+        queryAll: `SELECT * FROM lois_space_schema.tag_table`
     }
 }

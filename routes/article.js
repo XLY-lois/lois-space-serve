@@ -67,7 +67,7 @@ router.post('/uploadImg', function (req, res) {
         var dstPath
         var fileName
         if (err) {
-
+            console.log(err)
         } else {
             for (let key in files) {
                 let val = files[key]
