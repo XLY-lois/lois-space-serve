@@ -99,12 +99,12 @@ router.post('/uploadImg', function (req, res) {
 })
 router.get('/public/articleImg/:img', function (req, res) {
     res.setHeader("Content-Type", "image");
-    var content = fs.readFileSync('./public/articleImg/'+req.params.img, "binary");
+    var content = fs.readFileSync('./public/articleImg/' + req.params.img, "binary");
     res.writeHead(200, "Ok");
     res.write(content, "binary");
     res.end();
 })
-router.get('/likeById', function (req, res) {
+router.get('/likeById', function (req, res) {   //TODO
     console.log('/likeById 调用成功')
     let obj = {
         type: 'add',
@@ -112,6 +112,17 @@ router.get('/likeById', function (req, res) {
         articleId: '31'
     }//req.query
     handle.likeById(obj, result => {
+        let resObj = {
+            code: 1,
+            messge: '成功',
+            data: result
+        }
+        res.send(resObj)
+    })
+})
+router.get('/queryByTagId', function (req, res) {
+    console.log('/queryByTagId 调用成功')
+    handle.queryByTagId(req.query, result => {
         let resObj = {
             code: 1,
             messge: '成功',

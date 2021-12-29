@@ -56,8 +56,33 @@ module.exports = {
                     element.create_time = timeFormat.timestampFormat(element.create_time)
                     element.last_edit_time = timeFormat.timestampFormat(element.last_edit_time)
                     if (element.id_tag) {
-                        for (let i = 0; i <= tagList.length-1; i++) {
-                            if(element.id_tag == tagList[i].id_tag){
+                        for (let i = 0; i < tagList.length; i++) {
+                            if (element.id_tag == tagList[i].id_tag) {
+                                element.name_tag = tagList[i].name_tag
+                                element.color_tag = tagList[i].color_tag
+                            }
+                        }
+                    }
+                })
+                callback(result)
+            })
+        });
+    },
+    queryByTagId: function (obj, callback) {
+        connection.query(sql.article.queryByTagId(obj.id), function (err, result) {
+            if (err) {
+                console.log('[SELECT ERROR]:', err.message);
+            }
+            connection.query(sql.tagList.queryAll, function (err, tagList) {
+                if (err) {
+                    console.log('[SELECT ERROR]:', err.message);
+                }
+                result.forEach(element => {
+                    element.create_time = timeFormat.timestampFormat(element.create_time)
+                    element.last_edit_time = timeFormat.timestampFormat(element.last_edit_time)
+                    if (element.id_tag) {
+                        for (let i = 0; i < tagList.length; i++) {
+                            if (element.id_tag == tagList[i].id_tag) {
                                 element.name_tag = tagList[i].name_tag
                                 element.color_tag = tagList[i].color_tag
                             }
@@ -147,7 +172,17 @@ module.exports = {
             if (err) {
                 console.log('[SELECT ERROR]:', err.message);
             }
-            callback(result)
+            let tree = (function makeTree(arr, parentId) {
+                let temp = []
+                for (let i = 0; i < arr.length; i++) {
+                    if (arr[i].parent_id == parentId) {
+                        temp.push(arr[i])
+                        arr[i].children = makeTree(arr, arr[i].id)
+                    }
+                }
+                return temp
+            })(result, 0)
+            callback(tree)
         })
     },
     /**

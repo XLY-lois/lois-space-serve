@@ -23,6 +23,9 @@ module.exports = {
         queryArticleById: function (id) {
             return `SELECT * FROM lois_space_schema.article_table WHERE id = ${id}`
         },
+        queryByTagId: function(id) {
+            return `SELECT * FROM lois_space_schema.article_table WHERE id_tag = ${id} and status = 0 order by create_time desc limit 10`
+        }
     },
     comment: {
         queryCommentByArticleId: function (id) {
@@ -33,7 +36,10 @@ module.exports = {
         }
     },
     classification: {
-        queryAll: `SELECT * FROM lois_space_schema.classification_table`
+        queryAll: `SELECT * FROM lois_space_schema.classification_table`,
+        queryById: function(id){
+            return `SELECT * FROM lois_space_schema.classification_table WHERE id = ${id}`
+        } 
     },
     tagList: {
         queryAll: `SELECT * FROM lois_space_schema.tag_table`
