@@ -17,6 +17,7 @@ app.use(express.static(path.join(__dirname, 'dist')))  //将dist中的index作�
 // app.use('/api',require('./routes/article')) //文章相关接口
 // app.use('/', require('./routes/article')) 
 // app.use('/api',require('./routes/comment')) //评论相关接口
+// app.use('/api', require('./routes/classification')) //分类相关接口
 // app.use('/api', require('./routes/exInterface')) //外部第三方接口
 
 // 开发

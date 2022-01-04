@@ -77,18 +77,21 @@ module.exports = {
                 if (err) {
                     console.log('[SELECT ERROR]:', err.message);
                 }
-                result.forEach(element => {
-                    element.create_time = timeFormat.timestampFormat(element.create_time)
-                    element.last_edit_time = timeFormat.timestampFormat(element.last_edit_time)
-                    if (element.id_tag) {
-                        for (let i = 0; i < tagList.length; i++) {
-                            if (element.id_tag == tagList[i].id_tag) {
-                                element.name_tag = tagList[i].name_tag
-                                element.color_tag = tagList[i].color_tag
+                if (result && result.length) {
+                    result.forEach(element => {
+                        element.create_time = timeFormat.timestampFormat(element.create_time)
+                        element.last_edit_time = timeFormat.timestampFormat(element.last_edit_time)
+                        if (element.id_tag) {
+                            for (let i = 0; i < tagList.length; i++) {
+                                if (element.id_tag == tagList[i].id_tag) {
+                                    element.name_tag = tagList[i].name_tag
+                                    element.color_tag = tagList[i].color_tag
+                                }
                             }
                         }
-                    }
-                })
+                    })
+                }
+
                 callback(result)
             })
         });
