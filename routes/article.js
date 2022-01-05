@@ -61,7 +61,7 @@ router.post('/editArticleById', function (req, res) {
 })
 router.post('/uploadImg', function (req, res) {
     console.log('/uploadImg 调用')
-    let form = new multiparty.Form({ uploadDir: '../articleImg', keepExtensions: true })
+    let form = new multiparty.Form({ uploadDir: '../public/articleImg', keepExtensions: true })
     form.parse(req, function (err, fields, files) {
         let uploadedPath
         let dstPath
@@ -73,7 +73,7 @@ router.post('/uploadImg', function (req, res) {
                 let val = files[key]
                 uploadedPath = val[0].path
                 fileName = val[0].originalFilename
-                dstPath = '../articleImg/' + val[0].originalFilename;
+                dstPath = '../public/articleImg/' + val[0].originalFilename;
             }
             //重命名为真实文件名
             fs.rename(uploadedPath, dstPath, function (err) {
@@ -88,8 +88,8 @@ router.post('/uploadImg', function (req, res) {
             "errno": 0,
             "data": [
                 {
-                    // url:`http://image.demo.com/${fileName}`,
-                    url: `http://114.132.240.121:3000/public/articleImg/${fileName}` ,
+                    url:`http://image.demo.com/articleImg/${fileName}`,
+                    // url: `http://114.132.240.121:3000/public/articleImg/${fileName}` ,
                     alt: "图片文字说明",
                     href: "跳转链接"
                 }
@@ -99,7 +99,7 @@ router.post('/uploadImg', function (req, res) {
 })
 router.get('/public/articleImg/:img', function (req, res) {
     res.setHeader("Content-Type", "image");
-    var content = fs.readFileSync('../articleImg/' + req.params.img, "binary");
+    var content = fs.readFileSync('../public/articleImg/' + req.params.img, "binary");
     res.writeHead(200, "Ok");
     res.write(content, "binary");
     res.end();
