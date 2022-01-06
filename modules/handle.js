@@ -175,17 +175,28 @@ module.exports = {
             if (err) {
                 console.log('[SELECT ERROR]:', err.message);
             }
-            let tree = (function makeTree(arr, parentId) {
-                let temp = []
-                for (let i = 0; i < arr.length; i++) {
-                    if (arr[i].parent_id == parentId) {
-                        temp.push(arr[i])
-                        arr[i].children = makeTree(arr, arr[i].id)
+            connection.query(sql.tagList.queryAll, function (err, tagList) {
+                let newArr = []
+                tagList.forEach(ele => {
+                    let obj = {}
+                    obj.id = ele.id_tag
+                    obj.class_name = ele.name_tag
+                    obj.parent_id = 1
+                    newArr.push(obj)
+                })
+                let list = [...newArr, ...JSON.parse(JSON.stringify(result))]
+                let tree = (function makeTree(arr, parentId) {
+                    let temp = []
+                    for (let i = 0; i < arr.length; i++) {
+                        if (arr[i].parent_id == parentId) {
+                            temp.push(arr[i])
+                            arr[i].children = makeTree(arr, arr[i].id)
+                        }
                     }
-                }
-                return temp
-            })(result, 0)
-            callback(tree)
+                    return temp
+                })(list, 0)
+                callback(tree)
+            })
         })
     },
     /**

@@ -36,7 +36,7 @@ module.exports = {
         }
     },
     classification: {
-        queryAll: `SELECT * FROM lois_space_schema.classification_table`,
+        queryAll: `SELECT * FROM lois_space_schema.classification_table where status = 0`,
         queryById: function(id){
             return `SELECT * FROM lois_space_schema.classification_table WHERE id = ${id}`
         } 
