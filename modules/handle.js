@@ -189,6 +189,10 @@ module.exports = {
         })
     },
     /**
+     * 静态资源
+     */
+
+    /**
      * 第三方接口
      */
     getLocal: function (ip) {

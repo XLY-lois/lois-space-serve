@@ -89,7 +89,7 @@ router.post('/uploadImg', function (req, res) {
             "data": [
                 {
                     url:`http://image.demo.com/articleImg/${fileName}`,
-                    // url: `http://114.132.240.121:3000/public/articleImg/${fileName}` ,
+                    // url: `http://114.132.240.121:3000/public/articleImg/${fileName}` , //生产图片回显
                     alt: "图片文字说明",
                     href: "跳转链接"
                 }
