@@ -23,7 +23,7 @@ router.get('/getBgImg', function (req, res) {
         }
         return num
     }
-    let num = randomNum(1, 6);
+    let num = randomNum(1, 10);
     var content = fs.readFileSync(`../public/bgImg/bg${num}.jpg`, "binary");
     res.writeHead(200, "Ok");
     res.write(content, "binary");
