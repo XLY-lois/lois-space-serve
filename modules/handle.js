@@ -48,7 +48,7 @@ module.exports = {
             if (err) {
                 console.log('[SELECT ERROR]:', err.message);
             }
-            connection.query(sql.tagList.queryAll, function (err, tagList) {
+            connection.query(sql.tag.getTagList, function (err, tagList) {
                 if (err) {
                     console.log('[SELECT ERROR]:', err.message);
                 }
@@ -144,6 +144,28 @@ module.exports = {
         });
     },
     /**
+     * 
+     * 标签相关 
+     */
+    getTagList: function (obj,callback) {
+        connection.query(sql.tag.getTagList, function (err, result) {
+            if (err) {
+                console.log('[SELECT ERROR]:', err.message);
+            }
+            console.log(result)
+            let tagList = []
+            result.forEach(ele => {
+                let tagObj = {
+                    id:ele.id_tag,
+                    text:ele.name_tag
+                }
+                tagList.push(tagObj)
+            })
+            console.log(tagList)
+            callback(tagList)
+        })
+    },
+    /**
    * 留言相关
    */
     queryCommentByArticleId: function (id, callback) {
@@ -175,7 +197,7 @@ module.exports = {
             if (err) {
                 console.log('[SELECT ERROR]:', err.message);
             }
-            connection.query(sql.tagList.queryAll, function (err, tagList) {
+            connection.query(sql.tag.getTagList, function (err, tagList) {
                 let newArr = []
                 tagList.forEach(ele => {
                     let obj = {}

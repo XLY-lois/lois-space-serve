@@ -8,7 +8,7 @@ module.exports = {
     article: {
         queryAllArticles: 'SELECT * FROM article_table where status = 0 order by create_time desc limit 10',
         addArticle: function (obj) {
-            return `INSERT INTO lois_space_schema.article_table(content_html, content_text, title) VALUES ('${obj.htmlContent}', '${obj.textContent}', '${obj.titleContent}')`
+            return `INSERT INTO lois_space_schema.article_table(content_html, content_text, title, id_tag) VALUES ('${obj.htmlContent}', '${obj.textContent}', '${obj.titleContent}','${obj.id_tag}')`
         },
         delArticleById: function (obj) {
             let sql = ''
@@ -18,7 +18,7 @@ module.exports = {
             return sql
         },
         editArticleById: function (obj) {
-            return `UPDATE lois_space_schema.article_table SET content_html = '${obj.htmlContent}', content_text = '${obj.textContent}', title='${obj.titleContent}' WHERE id = ${obj.id};`
+            return `UPDATE lois_space_schema.article_table SET content_html = '${obj.htmlContent}', content_text = '${obj.textContent}', title='${obj.titleContent}', id_tag='${obj.id_tag}' WHERE id = ${obj.id};`
         },
         queryArticleById: function (id) {
             return `SELECT * FROM lois_space_schema.article_table WHERE id = ${id}`
@@ -41,7 +41,7 @@ module.exports = {
             return `SELECT * FROM lois_space_schema.classification_table WHERE id = ${id}`
         } 
     },
-    tagList: {
-        queryAll: `SELECT * FROM lois_space_schema.tag_table`
+    tag: {
+        getTagList: `SELECT * FROM lois_space_schema.tag_table where status = 0`
     }
 }
