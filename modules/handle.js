@@ -73,7 +73,7 @@ module.exports = {
             if (err) {
                 console.log('[SELECT ERROR]:', err.message);
             }
-            connection.query(sql.tagList.queryAll, function (err, tagList) {
+            connection.query(sql.tag.getTagList, function (err, tagList) {
                 if (err) {
                     console.log('[SELECT ERROR]:', err.message);
                 }
