@@ -1,6 +1,6 @@
 module.exports = {
     visitor: { // visitor表的语句
-        queryAll: 'SELECT * FROM visitor_table',
+        queryRecent: 'SELECT * FROM visitor_table order by visit_time desc limit 15',
         addVisitor: function (obj) {
             return `INSERT INTO lois_space_schema.visitor_table (ip, name, email) VALUES ('${obj.ip} ','${obj.name} ','${obj.email} ')`
         }

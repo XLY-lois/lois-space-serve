@@ -30,12 +30,14 @@ module.exports = {
             callback(result)
         });
     },
-    queryAll: function (callback) {
-        connection.query(sql.visitor.queryAll, function (err, result) {
+    queryRecent: function (callback) {
+        connection.query(sql.visitor.queryRecent, function (err, result) {
             if (err) {
                 console.log('[SELECT ERROR]:', err.message);
             }
-
+            result.forEach(element => {
+                element.visit_time = timeFormat.timestampFormat(element.visit_time)
+            })
             callback(result)
         });
 

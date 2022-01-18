@@ -3,8 +3,8 @@ var handle = require('../modules/handle')
 
 let router = express.Router()
 
-router.get('/queryAllVisitors', function (req, res) {
-    handle.queryAll(result => {
+router.get('/queryRecentVisitors', function (req, res) {
+    handle.queryRecent(result => {
         res.send(result)
     })
 })
